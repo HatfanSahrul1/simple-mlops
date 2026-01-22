@@ -1,0 +1,20 @@
+# core
+numpy>=1.23
+pandas>=1.5
+
+# visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# machine learning
+scikit-learn>=1.2
+xgboost>=1.7
+
+# hyperparameter tuning
+optuna>=3.4
+
+# experiment tracking
+mlflow>=2.8
+
+# utils
+joblib>=1.3
