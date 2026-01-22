@@ -1,0 +1,15 @@
+artifact_uri: file:///app/mlruns/353139873113672547/36b6576fdd0c48388d361c0f0763141e/artifacts
+end_time: 1769116719046
+entry_point_name: ''
+experiment_id: '353139873113672547'
+lifecycle_stage: active
+run_id: 36b6576fdd0c48388d361c0f0763141e
+run_name: casual-duck-834
+run_uuid: 36b6576fdd0c48388d361c0f0763141e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769116711278
+status: 3
+tags: []
+user_id: root

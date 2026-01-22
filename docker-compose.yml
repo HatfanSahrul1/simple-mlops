@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  trainer:
+    build: .
+    container_name: ml-trainer
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./mlruns:/app/mlruns
+    command: python src/models/train.py
+    restart: on-failure
+
+  predictor:
+    build: .
+    container_name: ml-predictor
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./mlruns:/app/mlruns
+    command: python src/startup.py
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  monitor:
+    build: .
+    container_name: ml-monitor
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./mlruns:/app/mlruns
+    command: python src/monitor.py
+    depends_on:
+      - predictor
+    restart: always
+
+  mlflow-ui:
+    image: ghcr.io/mlflow/mlflow:v2.10.2
+    container_name: ml-dashboard
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    command: mlflow ui --backend-store-uri file:///mlruns --host 0.0.0.0
+    restart: always
